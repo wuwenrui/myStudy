@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwr.dao.SaleChanceDao">
+	
+	<resultMap type="SaleChance" id="SaleChanceResult">
+		<result property="id" column="id"/>
+		<result property="chanceSource" column="chanceSource"/>
+		<result property="cgjl" column="cgjl"/>
+		<result property="overView" column="overView"/>
+		<result property="linkMan" column="linkMan"/>
+		<result property="linkPhone" column="linkPhone"/>
+		<result property="description" column="description"/>
+		<result property="createMan" column="createMan"/>
+		<result property="createTime" column="createTime"/>
+		<result property="assignMan" column="assignMan"/>
+		<result property="assignTime" column="assignTime"/>
+		<result property="state" column="state"/>
+		<result property="devResult" column="devResult"/>
+	</resultMap>
+	
+	<select id="find" parameterType="SaleChance" resultMap="SaleChanceResult">
+		select * from t_sale_chance
+		<where>
+			<if test="customerName!=null and customerName!='' ">
+				and customerName like #{customerName}
+			</if>
+			<if test="overView!=null and overView!='' ">
+				and overView like #{overView}
+			</if>
+			<if test="createMan!=null and createMan!='' ">
+				and createMan like #{createMan}
+			</if>
+			<if test="state!=null">
+				and state = #{state}
+			</if>
+			<if test="devResult!=null ">
+				and devResult = #{devResult}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="SaleChance" resultType="Long">
+		select count(*) from t_sale_chance
+		<where>
+			<if test="customerName!=null and customerName!='' ">
+				and customerName like #{customerName}
+			</if>
+			<if test="overView!=null and overView!='' ">
+				and overView like #{overView}
+			</if>
+			<if test="createMan!=null and createMan!='' ">
+				and createMan like #{createMan}
+			</if>
+			<if test="state!=null">
+				and state = #{state}
+			</if>
+			<if test="devResult!=null ">
+				and devResult = #{devResult}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add" parameterType="SaleChance">
+		insert into t_sale_chance values(null,#{chanceSource},#{customerName},#{cgjl},#{overView},#{linkMan},#{linkPhone},#{description},#{createMan},#{createTime},#{assignMan},#{assignTime},#{state},#{devResult})
+	</insert>
+	
+	<update id="update" parameterType="SaleChance">
+		update t_sale_chance
+		<set>
+			<if test="chanceSource!=null and chanceSource!='' ">
+				 chanceSource = #{chanceSource},
+			</if>
+			<if test="customerName!=null and customerName!='' ">
+				 customerName = #{customerName},
+			</if>
+			<if test="cgjl!=null ">
+				 cgjl = #{cgjl},
+			</if>
+			<if test="overView!=null and overView!='' ">
+				 overView = #{overView},
+			</if>
+			<if test="linkMan!=null and linkMan!='' ">
+				 linkMan = #{linkMan},
+			</if>
+			<if test="linkPhone!=null and linkPhone!='' ">
+				 linkPhone = #{linkPhone},
+			</if>
+			<if test="description!=null and description!='' ">
+				 description = #{description},
+			</if>
+			<if test="createMan!=null and createMan!='' ">
+				 createMan = #{createMan},
+			</if>
+			<if test="createTime!=null ">
+				 createTime = #{createTime},
+			</if>
+			<if test="assignMan!=null and assignMan!='' ">
+				 assignMan = #{assignMan},
+			</if>
+			<if test="assignTime!=null">
+				 assignTime = #{assignTime},
+			</if>
+			<if test="state!=null ">
+				 state = #{state},
+			</if>
+			<if test="devResult!=null ">
+				 devResult = #{devResult},
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_sale_chance where id=#{id}
+	</delete>
+	
+	<select id="findById" parameterType="Integer" resultMap="SaleChanceResult">
+		select * from t_sale_chance where id=#{id}
+	</select>
+	
+</mapper>
