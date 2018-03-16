@@ -142,7 +142,7 @@
 	</div>
 </div>
 <div region="south" style="height: 25px;padding: 5px" align="center">
-	版本所有 wwr <a href="http://1024567671@qq.com" target="_blank">1024567671@qq.com</a>(2013-2015)
+	版本所有 wwr <a href="http://1024567671@qq.com" target="_blank">1024567671@qq.com</a>
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:400px;height:250px;padding: 10px 20px"
