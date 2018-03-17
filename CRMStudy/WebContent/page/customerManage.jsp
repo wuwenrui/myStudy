@@ -140,6 +140,24 @@
 		window.parent.openTab('客户联系人管理','linkManManage.jsp?cusId='+selectRows[0].id,'icon-lxr');
 	}
 	
+	function openCustomerContact(){
+		var selectRows = $("#dg").datagrid("getSelections");
+		if(selectRows.length!=1){
+			$.messager.alert("系统提示","请选择一条要管理的数据");
+			return;
+		}
+		window.parent.openTab('客户交往记录管理','contactManage.jsp?cusId='+selectRows[0].id,'icon-jwjl');
+	}
+	
+	function openCustomerOrder(){
+		var selectRows = $("#dg").datagrid("getSelections");
+		if(selectRows.length!=1){
+			$.messager.alert("系统提示","请选择一条要管理的数据");
+			return;
+		}
+		window.parent.openTab('客户历史订单管理','orderManage.jsp?cusId='+selectRows[0].id,'icon-lsdd');
+	}
+	
 </script>
 </head>
 <body style="margin:1px;">
@@ -183,6 +201,8 @@
 		<a href="javascript:openCustomerModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
 		<a href="javascript:deleteCustomer()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 		<a href="javascript:openCustomerLinkMan()" class="easyui-linkbutton" iconCls="icon-lxr" plain="true">联系人</a>
+		<a href="javascript:openCustomerContact()" class="easyui-linkbutton" iconCls="icon-jwjl" plain="true">交往记录</a>
+		<a href="javascript:openCustomerOrder()" class="easyui-linkbutton" iconCls="icon-lsdd" plain="true">客户历史订单</a>
 	</div>
  	<div>
  		&nbsp;客户编号：&nbsp;<input type="text" id="s_khno" size="20" onkeydown="if(event.keyCode==13) searchCustomer()"/>

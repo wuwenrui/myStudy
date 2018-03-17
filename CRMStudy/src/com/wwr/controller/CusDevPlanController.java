@@ -23,7 +23,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 客户开发计划控制类
+ * @author wuwenrui
+ *
+ */
 @Controller
 @RequestMapping("/cusDevPlan")
 public class CusDevPlanController {
@@ -58,7 +62,7 @@ public class CusDevPlanController {
 		 List<CusDevPlan> list = cusDevPlanService.find(map);
 		 JSONObject result = new JSONObject();
 		 JsonConfig jsonConfig = new JsonConfig();
-		 //将saleChance排除掉，不然会导致死循环
+		 //将saleChance排除掉，不然会导致死循环:过滤不需要转换的属性
 		 jsonConfig.setExcludes(new String[]{"saleChance"});
 		 jsonConfig.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd"));
 		 JSONArray jsonArray = JSONArray.fromObject(list, jsonConfig);
