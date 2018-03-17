@@ -30,7 +30,7 @@ function formatState(val,row){
 }
 
 function formatAction(val,row){
-	return "<a href='javascript:'>查看订单明细</a>";
+	return "<a href='javascript:open'>查看订单明细</a>";
 }
 
 </script>
