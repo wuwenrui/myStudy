@@ -1,5 +1,6 @@
 package com.wwr.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,9 +17,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.wwr.entity.PageBean;
 import com.wwr.entity.SaleChance;
+import com.wwr.entity.User;
 import com.wwr.service.SaleChanceService;
 import com.wwr.util.ResponseUtil;
 import com.wwr.util.StringUtil;
@@ -58,7 +63,19 @@ public class SaleChanceController {
 	 */
 	@RequestMapping("/list")
 	public String list(@RequestParam(value="page")String page,@RequestParam(value="rows")String rows,SaleChance s_saleChance,HttpServletResponse response)throws Exception{
-		PageBean pageBean = new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		System.out.println("============================================");
+		User user = (User) request.getSession().getAttribute("currentUser");
+		System.out.println("============================================");
+		if(user==null){
+			System.err.println(request.getRequestURI());
+			System.err.println(request.getContextPath()+"/user/login.do");
+			//return ("http://localhost:8080"+request.getContextPath()+"/login");
+			//return request.getContextPath()+"/login.jsp";
+			return "redirect:/login.jsp";
+		}
+		
+		/*PageBean pageBean = new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("customerName", StringUtil.formatLike(s_saleChance.getCustomerName()));
 		map.put("overView", StringUtil.formatLike(s_saleChance.getOverView()));
@@ -76,7 +93,7 @@ public class SaleChanceController {
 		JSONArray jsonArray = JSONArray.fromObject(saleChanceList,jsonConfig);
 		result.put("rows",jsonArray);
 		result.put("total",total);
-		ResponseUtil.write(response, result);
+		ResponseUtil.write(response, result);*/
 		return null;
 	}
 	/**

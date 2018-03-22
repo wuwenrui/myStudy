@@ -1,5 +1,6 @@
 package com.wwr.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,16 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Long getTotal(Map<String, Object> map) {
 		return orderDao.getTotal(map);
+	}
+
+	@Override
+	public Order findById(Integer Id) {
+		return orderDao.findById(Id);
+	}
+
+	@Override
+	public Order getLastOrderTime(Integer cusId) {
+		return orderDao.getLastOrderTime(cusId);
 	}
 
 }

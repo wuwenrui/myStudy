@@ -53,6 +53,8 @@
 		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		  <property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	<!-- <bean id="myAspect" class="com.wwr.controller.SessionTimeOutAspect"></bean> -->
 
 	<!-- 配置事务通知属性 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">  
@@ -81,6 +83,12 @@
     	<aop:pointcut expression="execution(* com.wwr.service.*.*(..))" 
     				  id="serviceOperation"/>
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
+    	
+    	
+    	
+    	<!-- <aop:aspect  ref="myAspect">
+    		<aop:before pointcut-ref="serviceOperation" method="sessionTime"/>
+    	</aop:aspect> -->
     </aop:config>
 
 </beans>

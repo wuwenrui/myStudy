@@ -54,6 +54,8 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	
 	<!-- 添加对SpringMvc的支持 -->
 	<servlet>
 		<servlet-name>springMVC</servlet-name>

@@ -30,7 +30,29 @@ function formatState(val,row){
 }
 
 function formatAction(val,row){
-	return "<a href='javascript:open'>查看订单明细</a>";
+	return "<a href='javascript:openOrderDetailsDialog("+row.id+")'>查看订单明细</a>";
+}
+
+function openOrderDetailsDialog(orderId){
+	$("#dlg").dialog('open').dialog("setTitle","订单详情");
+	$.post('${pageContext.request.contextPath}/order/findById.do',{id:orderId},function(result){
+		$("#fm").form('load',result);
+		if(result.state==0){
+			$("#state").val("未回款");
+		}else if(result.state==1){
+			$("#state").val("已回款");
+		}
+	},"json");
+	$.post('${pageContext.request.contextPath}/orderDetails/getTotalPrice.do',{"orderId":orderId},function(result){
+		$("#totalMoney").val(result.totalMoney);
+	},"json");
+	$("#dg2").datagrid('reload',{
+		"orderId":orderId
+	});
+}
+
+function closeOrderDetailsDialog(){
+	$("#dlg").dialog('close');
 }
 
 </script>
@@ -65,5 +87,55 @@ function formatAction(val,row){
 	   	</tr>
    </thead>
 </table>
+
+<div id="dlg" class="easyui-dialog" style="width:700px;height:450px;padding: 10px 20px"
+ 	closed="true" buttons="#dlg-buttons"
+ >
+ 	 <form id="fm" method="post">
+ 	 	<table cellspacing="13px">
+ 	 		<tr>
+ 	 			<td>订单号：</td>
+ 	 			<td><input type="text" id="orderNo" name="orderNo" readonly="readonly"/></td>
+ 	 			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+ 	 			<td>订购日期：</td>
+ 	 			<td><input type="text" id="orderDate" name="orderDate" readonly="readonly"/></td>
+ 	 		</tr>
+ 	 		<tr>
+ 	 			<td>送货地址：</td>
+ 	 			<td><input type="text" id="address" name="address" readonly="readonly"/></td>
+ 	 			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+ 	 			<td>总金额：</td>
+ 	 			<td><input type="text" id="totalMoney" name="totalMoney" readonly="readonly"/></td>
+ 	 		</tr>
+ 	 		<tr>
+ 	 			<td>状态：</td>
+ 	 			<td><input type="text" id="state" name="state" readonly="readonly"/></td>
+ 	 			<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+ 	 		</tr>
+ 	 	</table>
+ 	 </form>
+ 	 
+<br/>
+<table id="dg2" title="订购详情" class="easyui-datagrid" style="width:600px;height:220px;"
+	 fitColumns="true" pagination="true" rownumbers="true" singleSelect="true"
+	url="${pageContext.request.contextPath}/orderDetails/list.do"
+	>
+	<thead>
+	   	<tr>
+	   		<th field="id" width="50" align="center">编号</th>
+	   		<th field="goodsName" width="100" align="center">商品名称</th>
+	   		<th field="goodsNum" width="50" align="center">商品数量</th>
+	   		<th field="unit" width="50" align="center">单位</th>
+	   		<th field="price" width="50" align="center">单价（元）</th>
+	   		<th field="sum" width="50" align="center">总金额（元）</th>
+	   	</tr>
+   </thead>
+</table>
+ 	 
+ </div>
+ <div id="dlg-buttons">
+ 	<a class="easyui-linkbutton" href="javascript:closeOrderDetailsDialog()" iconCls="icon-cancel" plain="true">关闭</a>
+ </div>
+
 </body>
 </html>

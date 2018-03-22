@@ -43,4 +43,13 @@ public interface CustomerService {
 	 * @return
 	 */
 	public Customer findById(Integer id);
+	/**
+	 * 获取六个月没下单的客户（即将流失的客户）
+	 * @return
+	 */
+	public List<Customer> getCustomerLoss();
+	/**
+	 * 定时查找流失客户并添加到客户流失表
+	 */
+	public void checkCustomerLoss();
 }

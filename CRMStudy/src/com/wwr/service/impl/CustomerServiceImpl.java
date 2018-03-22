@@ -8,7 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.wwr.dao.CustomerDao;
+import com.wwr.dao.CustomerLossDao;
+import com.wwr.dao.OrderDao;
 import com.wwr.entity.Customer;
+import com.wwr.entity.CustomerLoss;
+import com.wwr.entity.Order;
 import com.wwr.service.CustomerService;
 
 @Service("customerService")
@@ -16,6 +20,12 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Resource
 	private CustomerDao customerDao;
+	
+	@Resource
+	private CustomerLossDao customerLossDao;
+	
+	@Resource
+	private OrderDao        orderDao;
 	
 	@Override
 	public List<Customer> find(Map<String, Object> map) {
@@ -47,4 +57,29 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerDao.findById(id);
 	}
 
+	@Override
+	public List<Customer> getCustomerLoss() {
+		return customerDao.getCustomerLoss();
+	}
+
+	@Override
+	public void checkCustomerLoss(){
+		List<Customer> customerList = customerDao.getCustomerLoss();
+		for(Customer c:customerList){
+			CustomerLoss cus = new CustomerLoss();
+			cus.setCusNo(c.getKhno());  //客户编号
+			cus.setCusName(c.getName()); //客户名称
+			cus.setCusManager(c.getCusManager());  //客户经理
+			Order order = orderDao.getLastOrderTime(c.getId()); //获取客户最后下单实体
+			if(order==null){
+				cus.setLastOrderTime(null);
+			}else{
+				cus.setLastOrderTime(order.getOrderDate());
+			}
+			customerLossDao.add(cus);	//添加到流失客户
+			c.setState(1);
+			customerDao.update(c);
+		}
+	}
+	
 }

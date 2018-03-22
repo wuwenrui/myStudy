@@ -75,5 +75,23 @@ public class OrderController {
 		 ResponseUtil.write(response, result);
 		 return null;
 	 }
+	 
+	 /**
+	  * 根据id查找实体
+	  * @param id
+	  * @param response
+	  * @return
+	  * @throws Exception
+	  */
+	 @RequestMapping("findById")
+	 public String findById(@RequestParam(value="id")String id,HttpServletResponse response)throws Exception{
+		 Order order = orderService.findById(Integer.parseInt(id));
+		 JsonConfig jsonConfig = new JsonConfig();
+		 jsonConfig.setExcludes(new String[]{"customer"});
+		 jsonConfig.registerJsonValueProcessor(java.util.Date.class,new DateJsonValueProcessor("yyyy-MM-dd"));
+		 JSONObject jsonObject = JSONObject.fromObject(order,jsonConfig);
+		 ResponseUtil.write(response, jsonObject);
+		 return null;
+	 }
 	
 }

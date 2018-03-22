@@ -50,6 +50,7 @@ public class UserController {
 			return "login";
 		}else{
 			HttpSession session = request.getSession();
+			//session.setMaxInactiveInterval(15);
 			session.setAttribute("currentUser",resultUser);
 			return "redirect:/main.jsp";
 		}

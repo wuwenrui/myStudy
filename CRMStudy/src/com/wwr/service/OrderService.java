@@ -1,5 +1,6 @@
 package com.wwr.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +25,16 @@ public interface OrderService {
 	 */
 	public Long getTotal(Map<String,Object> map);
 	
+	/**
+	 * 根据id查找实体
+	 * @param Id
+	 * @return
+	 */
+	public Order findById(Integer Id);
+	/**
+	 * 根据客户id获取客户最后下单时间
+	 * @param cusId
+	 * @return
+	 */
+	public Order getLastOrderTime(Integer cusId);
 }

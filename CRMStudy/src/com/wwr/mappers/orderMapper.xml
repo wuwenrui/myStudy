@@ -34,4 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	<select id="findById" parameterType="Integer" resultMap="orderResult">
+		select * from t_customer_order where id = #{id}
+	</select>
+	
+	<select id="getLastOrderTime" parameterType="Integer" resultMap="orderResult">
+		SELECT * FROM t_customer_order WHERE cusId=#{cusId} ORDER BY orderDate DESC LIMIT 0,1
+	</select>
+	
 </mapper>
