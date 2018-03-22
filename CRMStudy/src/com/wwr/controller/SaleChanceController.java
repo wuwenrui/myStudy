@@ -63,7 +63,7 @@ public class SaleChanceController {
 	 */
 	@RequestMapping("/list")
 	public String list(@RequestParam(value="page")String page,@RequestParam(value="rows")String rows,SaleChance s_saleChance,HttpServletResponse response)throws Exception{
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		/*HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		System.out.println("============================================");
 		User user = (User) request.getSession().getAttribute("currentUser");
 		System.out.println("============================================");
@@ -73,9 +73,9 @@ public class SaleChanceController {
 			//return ("http://localhost:8080"+request.getContextPath()+"/login");
 			//return request.getContextPath()+"/login.jsp";
 			return "redirect:/login.jsp";
-		}
+		}*/
 		
-		/*PageBean pageBean = new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
+		PageBean pageBean = new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("customerName", StringUtil.formatLike(s_saleChance.getCustomerName()));
 		map.put("overView", StringUtil.formatLike(s_saleChance.getOverView()));
@@ -93,7 +93,7 @@ public class SaleChanceController {
 		JSONArray jsonArray = JSONArray.fromObject(saleChanceList,jsonConfig);
 		result.put("rows",jsonArray);
 		result.put("total",total);
-		ResponseUtil.write(response, result);*/
+		ResponseUtil.write(response, result);
 		return null;
 	}
 	/**
