@@ -27,6 +27,17 @@ public interface CustomerLossService {
 	 * 客户流失添加
 	 * @param customerLoss
 	 */
-	public void add(CustomerLoss customerLoss);
+	public int add(CustomerLoss customerLoss);
+	/**
+	 * 根据id查询实体
+	 * @param id
+	 * @return
+	 */
+	public CustomerLoss findById(Integer id);
+	/**
+	 * 修改客户流失
+	 * @param customerLoss
+	 */
+	public int update(CustomerLoss customerLoss);
 	
 }

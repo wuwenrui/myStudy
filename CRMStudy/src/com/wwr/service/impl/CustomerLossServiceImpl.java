@@ -36,8 +36,18 @@ public class CustomerLossServiceImpl implements CustomerLossService{
 	}
 
 	@Override
-	public void add(CustomerLoss customerLoss) {
-		customerLossDao.add(customerLoss);
+	public int add(CustomerLoss customerLoss) {
+		return customerLossDao.add(customerLoss);
+	}
+
+	@Override
+	public CustomerLoss findById(Integer id) {
+		return customerLossDao.findById(id);
+	}
+
+	@Override
+	public int update(CustomerLoss customerLoss) {
+		return customerLossDao.update(customerLoss);
 	}
 
 }

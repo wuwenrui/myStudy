@@ -28,6 +28,18 @@
 		}
 	}
 	
+	function formatAction(val,row){
+		if(row.state==0){
+			return "<a href='javascript:openCustomerReprieve("+row.id+")'>暂缓流失</a>";
+		}else if(row.state==1){
+			return "客户确定流失";
+		}
+	}
+	
+	function openCustomerReprieve(id){
+		window.parent.openTab('客户流失暂缓措施管理','customerRepreieveManage.jsp?lossId='+id,'icon-khlsgl');
+	}
+	
 </script>
 </head>
 <body style="margin:1px;">
@@ -44,11 +56,13 @@
 	   		<th field="confirmLossTime" width="100" align="center">确认流失时间</th>
 	   		<th field="state" width="100" align="center" formatter="formatState">客户状态</th>
 	   		<th field="lossreason" width="100" align="center">流失原因</th>
+	   		<th field="a" width="100" align="center" formatter="formatAction">操作</th>
 	   	</tr>
    </thead>
    
 </table>
 <div id="tb">
+	<!-- &nbsp;<a href="javascript:open" class="easyui-linkbutton" iconCls="icon-zhls" plain="true">暂缓流失</a> -->
  	<div>
  		&nbsp;客户名称：&nbsp;<input type="text" id="s_cusName" size="20" onkeydown="if(event.keyCode==13) searchCustomerLoss()"/>
  		&nbsp;经理名称：&nbsp;<input type="text" id="s_cusManager" size="20" onkeydown="if(event.keyCode==13) searchCustomerLoss()"/>
@@ -59,6 +73,7 @@
  		</select>
  		<a href="javascript:searchCustomerLoss()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
  	</div>
+ 	
  </div>
 </body>
 </html>

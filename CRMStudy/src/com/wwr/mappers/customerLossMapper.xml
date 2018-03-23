@@ -52,4 +52,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into t_customer_loss values(null,#{cusNo},#{cusName},#{cusManager},#{lastOrderTime},null,0,null)
 	</insert>
 	
+	<select id="findById" parameterType="Integer" resultMap="customerLossResult">
+		select * from t_customer_loss where id=#{id}
+	</select>
+	
+	<update id="update" parameterType="CustomerLoss">
+		update t_customer_loss 
+		<set>
+			<if test="confirmLossTime!=null">
+				confirmLossTime=#{confirmLossTime},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+			<if test="lossreason!=null and lossreason!='' ">
+				lossreason=#{lossreason},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
 </mapper>
