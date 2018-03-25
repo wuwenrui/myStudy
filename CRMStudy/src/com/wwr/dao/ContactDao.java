@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.wwr.entity.Contact;
 
+
+
 /**
  * 交往记录Dao接口
  * @author wuwenrui

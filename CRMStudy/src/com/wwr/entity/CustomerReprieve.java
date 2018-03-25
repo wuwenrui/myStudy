@@ -7,7 +7,7 @@ package com.wwr.entity;
 public class CustomerReprieve {
 	
 	private Integer id;  //编号
-	private CustomerLoss customerLoss; //客户流失
+	private CustomerLoss customerLoss; //客户流失实体
 	private String   measure;  //暂缓措施
 	
 	public Integer getId() {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.wwr.entity.SaleChance;
 
+
 /**
  * 销售机会dao接口
  * @author Administrator

@@ -77,6 +77,10 @@ public class CustomerServiceImpl implements CustomerService{
 				cus.setLastOrderTime(order.getOrderDate());
 			}
 			customerLossDao.add(cus);	//添加到流失客户
+			/**
+			 * 添加完成之后修改客户表中状态，1的话是客户流失，如果客户六个月没下单且没流失（状态为0），则添加到
+			 * 客户流失表，此时如果进修改客户流失状态，则会一直添加相同的数据。
+			 */
 			c.setState(1);
 			customerDao.update(c);
 		}

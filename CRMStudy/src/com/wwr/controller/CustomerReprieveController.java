@@ -46,7 +46,7 @@ public class CustomerReprieveController {
 		JSONObject result = new JSONObject();
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setExcludes(new String[]{"customerLoss"});//排除掉customerLoss，否则会报错
-		JSONArray jsonArray = JSONArray.fromObject(list);
+		JSONArray jsonArray = JSONArray.fromObject(list,jsonConfig);
 		result.put("rows", jsonArray);
 		ResponseUtil.write(response, result);
 		return null;

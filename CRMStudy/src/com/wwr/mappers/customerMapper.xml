@@ -137,7 +137,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getCustomerLoss" resultMap="CustomerResult">
-		SELECT * FROM t_customer t1 WHERE t1.id  NOT IN (SELECT cusid FROM t_customer_order  WHERE DATE_ADD(orderDate,INTERVAL 6 MONTH)>NOW())
+		SELECT * FROM t_customer t1 WHERE t1.id  NOT IN (SELECT cusid FROM t_customer_order  WHERE DATE_ADD(orderDate,INTERVAL 6 MONTH)>NOW()) and T1.STATE=0
 	</select>
 	
 </mapper>
