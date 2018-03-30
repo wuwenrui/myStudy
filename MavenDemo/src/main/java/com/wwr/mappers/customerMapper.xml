@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wwr.dao.CustomerDao">
+	
+	<resultMap type="Customer" id="CustomerResult">
+		<result property="id" column="id"/>
+		<result property="khno" column="khno"/>
+		<result property="name" column="name"/>
+		<result property="area" column="area"/>
+		<result property="cusManager" column="cusManager"/>
+		<result property="level" column="level"/>
+		<result property="myd" column="myd"/>
+		<result property="xyd" column="xyd"/>
+		<result property="address" column="address"/>
+		<result property="postCode" column="postCode"/>
+		<result property="phone" column="phone"/>
+		<result property="fax" column="fax"/>
+		<result property="webSite" column="webSite"/>
+		<result property="yyzzzch" column="yyzzzch"/>
+		<result property="fr" column="fr"/>
+		<result property="zczj" column="zczj"/>
+		<result property="nyye" column="nyye"/>
+		<result property="khyh" column="khyh"/>
+		<result property="khzh" column="khzh"/>
+		<result property="dsdjh" column="dsdjh"/>
+		<result property="gsdjh" column="gsdjh"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<select id="find" parameterType="Map" resultMap="CustomerResult">
+		select * from t_customer
+		<where>
+			<if test="khno !=null and khno!=''">
+				and khno like #{khno}
+			</if>
+			<if test="name !=null and name!=''">
+				and name like #{name}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_customer
+		<where>
+			<if test="khno !=null and khno!=''">
+				and khno like #{khno}
+			</if>
+			<if test="name !=null and name!=''">
+				and name like #{name}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add" parameterType="Customer">
+		insert into t_customer values(null,#{khno},#{name},#{area},#{cusManager},#{level},#{myd},#{xyd},#{address},#{postCode},#{phone},#{fax},#{webSite},#{yyzzzch},#{fr},#{zczj},#{nyye},#{khyh},#{khzh},#{dsdjh},#{gsdjh},0)
+	</insert>
+	
+	<update id="update" parameterType="Customer">
+		update t_customer 
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="area!=null and area!=''">
+				area=#{area},
+			</if>
+			<if test="cusManager!=null and cusManager!=''">
+				cusManager=#{cusManager},
+			</if>
+			<if test="level!=null and level!=''">
+				level=#{level},
+			</if>
+			<if test="myd!=null and myd!=''">
+				myd=#{myd},
+			</if>
+			<if test="xyd!=null and xyd!=''">
+				xyd=#{xyd},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="postCode!=null and postCode!=''">
+				postCode=#{postCode},
+			</if>
+			<if test="phone!=null and phone!=''">
+				phone=#{phone},
+			</if>
+			<if test="fax!=null and fax!=''">
+				fax=#{fax},
+			</if>
+			<if test="webSite!=null and webSite!=''">
+				webSite=#{webSite},
+			</if>
+			<if test="yyzzzch!=null and yyzzzch!=''">
+				yyzzzch=#{yyzzzch},
+			</if>
+			<if test="fr!=null and fr!=''">
+				fr=#{fr},
+			</if>
+			<if test="zczj!=null and zczj!=''">
+				zczj=#{zczj},
+			</if>
+			<if test="nyye!=null and nyye!=''">
+				nyye=#{nyye},
+			</if>
+			<if test="khyh!=null and khyh!=''">
+				khyh=#{khyh},
+			</if>
+			<if test="khzh!=null and khzh!=''">
+				khzh=#{khzh},
+			</if>
+			<if test="dsdjh!=null and dsdjh!=''">
+				dsdjh=#{dsdjh},
+			</if>
+			<if test="gsdjh!=null and gsdjh!=''">
+				gsdjh=#{gsdjh},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from t_customer where id=#{id}
+	</delete>
+	
+	<select id="findById" parameterType="Integer" resultType="Customer">
+		select * from t_customer where id=#{id}
+	</select>
+	
+	<select id="getCustomerLoss" resultMap="CustomerResult">
+		SELECT * FROM t_customer t1 WHERE t1.id  NOT IN (SELECT cusid FROM t_customer_order  WHERE DATE_ADD(orderDate,INTERVAL 6 MONTH)>NOW()) and T1.STATE=0
+	</select>
+	
+</mapper>
